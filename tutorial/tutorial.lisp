@@ -21,7 +21,7 @@
 ;;; and <http://opensource.franz.com/preamble.html>.
 ;;; ----------------------------------------------------------------------------
 
-(asdf:load-system :cl-cffi-gtk)
+(eval-when (:compile-toplevel :load-toplevel :execute) (asdf:load-system :cl-cffi-gtk))
 
 (defpackage :gtk-tutorial
   (:use :gtk :gdk :gdk-pixbuf :gobject
@@ -131,7 +131,9 @@
                           (leave-gtk-main)))
       ;; Show the window.
       (gtk-widget-show-all window))))
-
+#+nil
+(sb-int:with-float-traps-masked (:divide-by-zero)
+ (example-getting-started))
 ;;; ----------------------------------------------------------------------------
 
 ;;; Hello World in GTK
@@ -1053,6 +1055,7 @@
       (gtk-container-add window hbox)
       (gtk-widget-show-all window))))
 
+
 ;;; ----------------------------------------------------------------------------
 
 (defun example-more-labels ()
@@ -1080,20 +1083,20 @@
                           (leave-gtk-main)))
       (gtk-box-pack-start hbox
                           (make-instance 'gtk-label
-                                         :label "Angle 90°"
+                                         :label "Angle 90deg"
                                          :angle 90))
       (gtk-box-pack-start vbox1
                           (make-instance 'gtk-label
-                                         :label "Angel 45°"
+                                         :label "Angel 45deg"
                                          :angle 45))
       (gtk-box-pack-start vbox1
                           (make-instance 'gtk-label
-                                         :label "Angel 315°"
+                                         :label "Angel 315deg"
                                          :angle 315))
       (gtk-box-pack-start hbox vbox1)
       (gtk-box-pack-start hbox
                           (make-instance 'gtk-label
-                                         :label "Angel 270°"
+                                         :label "Angel 270deg"
                                          :angle 270))
       (gtk-box-pack-start vbox2 hbox)
       (gtk-box-pack-start vbox2
@@ -4437,7 +4440,7 @@ happen.")
   ;; Wait until the main loop has finished
   (join-gtk-main))
 
-(defun create-about-dialog ()
+(defun create-about-dialog2 ()
   (let (;; Create an about dialog
         (dialog (make-instance 'gtk-about-dialog
                                :program-name "Example Dialog"
