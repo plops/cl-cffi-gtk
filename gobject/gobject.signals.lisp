@@ -1763,8 +1763,7 @@
 
 (defcfun ("g_signal_stop_emission" g-signal-stop-emission) :void
   (instance :pointer)
-  (signal-id :uint)
-  (detail g-quark))
+  (signal-id :uint))
 
 (export 'g-signal-stop-emission)
 
@@ -1785,6 +1784,13 @@
 ;;; detailed_signal :
 ;;;     a string of the form "signal-name::detail".
 ;;; ----------------------------------------------------------------------------
+
+(defcfun ("g_signal_stop_emission_by_name" g-signal-stop-emission-by-name) :void
+  (instance :pointer)
+  (detailed-signal :string))
+
+(export 'g-signal-stop-emission-by-name)
+
 
 ;;; ----------------------------------------------------------------------------
 ;;; g_signal_override_class_closure ()
